@@ -80,6 +80,10 @@ public class Result<T> implements Serializable {
         return new Result<>(resultCode.getCode(), resultCode.getMessage());
     }
 
+    public static <T> Result<T> error(ResultCode resultCode, String message) {
+        return new Result<>(resultCode.getCode(), message);
+    }
+
     // Getters and Setters
     public Integer getCode() {
         return code;

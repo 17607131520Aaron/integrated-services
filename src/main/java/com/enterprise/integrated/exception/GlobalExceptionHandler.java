@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
      * 参数校验异常处理 - @RequestBody
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Result<Void> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         String message = e.getBindingResult().getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
      * 参数校验异常处理 - @ModelAttribute
      */
     @ExceptionHandler(BindException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Result<Void> handleBindException(BindException e) {
         String message = e.getBindingResult().getFieldErrors().stream()
                 .map(FieldError::getDefaultMessage)
@@ -65,7 +65,7 @@ public class GlobalExceptionHandler {
      * 参数校验异常处理 - @RequestParam
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Result<Void> handleConstraintViolationException(ConstraintViolationException e) {
         String message = e.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage)
@@ -78,7 +78,7 @@ public class GlobalExceptionHandler {
      * 参数类型转换异常处理
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Result<Void> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
         String message = String.format("参数类型错误: %s", e.getName());
         logger.warn("参数类型转换失败: {}", message);
@@ -89,7 +89,7 @@ public class GlobalExceptionHandler {
      * 系统异常处理
      */
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.OK)
     public Result<Void> handleException(Exception e) {
         logger.error("系统异常: ", e);
         return Result.error(ResultCode.INTERNAL_SERVER_ERROR);
